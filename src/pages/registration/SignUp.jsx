@@ -1,12 +1,11 @@
 import { Link, useNavigate } from 'react-router-dom'
 import {useState } from 'react'
-// import {toast} from "react-toastify"
 // import Layout from '../../components/layout/Layout'
 // import MyContext from '../../context/data/MyContext'
 import {auth,fireDB} from "../../firebase/FirebaseConfig"
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { Timestamp, addDoc, collection } from 'firebase/firestore'
-import Loader from '../../components/loader/Loader'
+// import Loader from '../../components/loader/Loader'
 
 function SignUp() {
     const [loading,setLoading]=useState(false)
@@ -20,15 +19,15 @@ function SignUp() {
             return alert("All fields are required...")
         }
         try {
-            const users = await createUserWithEmailAndPassword(auth, email, password);
-            console.log(users)
+            const usera = await createUserWithEmailAndPassword(auth, email, password);
+            console.log(usera)
             const user = {
                 name: name,
-                uid: users.user.uid,
-                email: users.user.email,
+                uid: usera.user.uid,
+                email: usera.user.email,
                 time : Timestamp.now()
             }
-            const userRef = collection(fireDB, "users")
+            const userRef = collection(fireDB, "usera")
             await addDoc(userRef, user);
             alert("Signup Succesfully")
             setName("");
@@ -47,7 +46,7 @@ function SignUp() {
     return (
         // <Layout>
         <div className=' flex justify-center items-center h-screen'>
-            {loading &&<Loader/>}
+            {/* {loading &&<Loader/>} */}
             <div className='px-10 py-10 rounded-xl ' style={{ backgroundColor:'#3D0C11'}}>
                 <div className="">
                     <h1 className='text-center text-white text-xl mb-4 font-bold'>Signup</h1>
@@ -58,7 +57,7 @@ function SignUp() {
                         value={name}
                         onChange={(e)=>setName(e.target.value)}
                         className='mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-black placeholder:text-gray outline-none'
-                        style={{ backgroundColor: theme === 'dark' ? '#EBE3D5' : ''}}
+                        style={{ backgroundColor:'#EBE3D5'}}
                         placeholder='Name'
                     />
                 </div>
@@ -68,7 +67,7 @@ function SignUp() {
                         value={email}
                         onChange={(e)=>setEmail(e.target.value)}
                         className='mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-black placeholder:text-gray outline-none'
-                        style={{ backgroundColor: theme === 'dark' ? '#EBE3D5' : ''}}
+                        style={{ backgroundColor:'#EBE3D5'}}
                         placeholder='Email'
                     />
                 </div>
@@ -78,19 +77,19 @@ function SignUp() {
                         value={password}
                         onChange={(e)=>setPassword(e.target.value)}
                         className='mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-black placeholder:text-gray outline-none'
-                        style={{ backgroundColor: theme === 'dark' ? '#EBE3D5' : ''}}
+                        style={{ backgroundColor:'#EBE3D5'}}
                         placeholder='Password'
                     />
                 </div>
-                <div className=' flex justify-center mb-3 rounded-lg' style={{backgroundColor:theme==="dark" ? "rgb(59, 152, 245)":"rgb(250 204 21)"}}>
+                <div className=' flex justify-center mb-3 rounded-lg' style={{backgroundColor:"rgb(59, 152, 245)"}}>
                     <button
                         onClick={handleSignup}
-                        className='w-full text-white font-bold  px-2 py-2 rounded-lg' style={{color:theme==="dark"?"white":"black"}}>
+                        className='w-full text-white font-bold  px-2 py-2 rounded-lg' style={{color:"white"}}>
                         Signup
                     </button>
                 </div>
                 <div>
-                    <h2 className='text-white'>Have an account ? <Link className='font-bold' style={{color:theme==="dark" ? "rgb(59, 152, 245)":"rgb(250 204 21)"}} to={'/login'}>Login</Link></h2>
+                    <h2 className='text-white'>Have an account ? <Link className='font-bold' style={{color:"rgb(59, 152, 245)"}} to={'/login'}>Login</Link></h2>
                 </div>
             </div>
         </div>
